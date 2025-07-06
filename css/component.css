@@ -97,15 +97,8 @@ form h1{
     position: sticky;
     z-index: 1000;
 }
-.message span {
-    font-size: 2rem;
-    color: black;
-}
-.message i {
-    float: right;
-    cursor: pointer;
+.error {
     color: red;
-}
-.message i:hover {
-    color: darkred;
+    text-align: center;
+    margin-top: 10px;
 }
