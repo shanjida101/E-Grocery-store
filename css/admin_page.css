@@ -212,6 +212,85 @@
     margin: 0.6rem auto 0;
     border-radius: 10px;
 }
+/* Section Title */
+
+
+/* Box Container */
+.messages .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
+/* Title Styling */
+.messages .title {
+    background: linear-gradient(to right, #8fed6d, #42b021);
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 2rem auto;
+    width: fit-content;
+    padding: 0.8rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+}
+
+/* Message Box Styling */
+.messages .box {
+    background: #fdfdfd;
+    border-radius: 1rem;
+    padding: 1.8rem 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.messages .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Text Styling */
+.messages .box p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+}
+
+.messages .box span {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Delete Button */
+.messages .box .delete-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #dc3545;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.messages .box .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Empty message styling */
+.messages .empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 2rem;
+}
 
 /* ---------- Responsive Styles ---------- */
 
