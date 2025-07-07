@@ -4,7 +4,10 @@ session_start();
 include 'config.php';
 
 // Start a session to store user data across pages
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 // Handle form submission (POST request)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -65,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
