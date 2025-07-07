@@ -1,11 +1,14 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 @include 'config.php';
 
-$admin_id = $_SESSION['admin_id'] ;
+$user_id = $_SESSION['user_id'];
 
-if (!$admin_id) {
-    header('Location: admin_page.php'); 
+if (!$user_id) {
+    header('Location: login.php');
     exit;
 }
 ?>
@@ -17,7 +20,8 @@ if (!$admin_id) {
     <title>admin page</title>
 </head>
 <body>
-<h1>Welcome to the Admin Page</h1>
-<p>This page is accessible only to administrators.</p>  
+<h1>Welcome to the User Page</h1>
+<p>This page is accessible only to users.</p>  
+<a href="logout.php">Logout</a>
 </body>
 </html>

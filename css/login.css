@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Inter', sans-serif;
     box-sizing: border-box;
 }
 body {
@@ -22,7 +23,6 @@ form {
     background: linear-gradient(to bottom right, #7bd87a, #9af29b);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
     font-weight: bold;
 }
 .form-control {
