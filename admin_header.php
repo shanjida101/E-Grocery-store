@@ -20,11 +20,11 @@ if(isset($message)){
       <a href="admin_page.php" class="logo">Admin<span>Panel</span></a>
 
       <nav class="navbar">
-         <a href="admin_page.php">home</a>
-         <a href="admin_products.php">products</a>
-         <a href="admin_orders.php">orders</a>
-         <a href="admin_users.php">users</a>
-         <a href="admin_contacts.php">messages</a>
+         <a href="admin_page.php">HOME</a>
+         <a href="admin_products.php">PRODUCTS</a>
+         <a href="admin_orders.php">ORDERS</a>
+         <a href="admin_users.php">USERS</a>
+         <a href="admin_contacts.php">MESSAGES</a>
       </nav>
 
       <div class="icons">
