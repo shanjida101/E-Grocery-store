@@ -212,7 +212,80 @@
     margin: 0.6rem auto 0;
     border-radius: 10px;
 }
-/* Section Title */
+
+
+.dashboard .box-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 2rem;
+   justify-content: space-between;
+}
+.chart-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 2rem;
+   padding: 2rem 4%;
+    margin-top: 2rem;
+}
+
+.chart-box {
+   flex: 1;
+   min-width: 320px;
+   max-height: 350px;  /* NEW: controls overall height */
+   background: #fff;
+   border-radius: 1rem;
+   padding: 1.5rem;
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+   text-align: center;
+}
+
+
+.chart-box h3 {
+   font-size: 1.8rem;
+   color: #28a745;
+   margin-bottom: 1rem;
+}
+
+.chart-box .legend {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 0.9rem;
+}
+
+.chart-box:hover {
+   transform: translateY(-5px);
+}
+.chart-container .chart-box {
+   flex: 1; 
+   background: #fff;
+   border-radius: 1rem;
+   padding: 2rem;
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+   text-align: center;
+   transition: transform 0.2s;
+}
+.box-container .chart-box h3 {
+   font-size: 1.8rem;
+   color: #28a745;
+   margin-bottom: 1rem;
+}
+
+.box-container .chart-box .legend {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 0.9rem;
+}
+
+.chart-box:hover {
+   transform: translateY(-5px);
+}
+.chart-box canvas {
+    width: 100% !important;
+    height: 300px !important;
+    max-height: 300px;
+    margin: 0 auto;
+}
 
 
 /* Box Container */
@@ -292,193 +365,9 @@
     margin-top: 2rem;
 }
 
-/* ---------- orders ---------- */
-/* Section container */
-.placed-orders {
-    max-width: 1200px;
-    margin:  auto;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 1rem;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
-}
 
-/* Title */
-.placed-orders .title {
-    text-align: center;
-    font-size: 2.4rem;
-    margin-bottom: 2rem;
-    color: green;
-    font-weight: bold;
-    text-transform: capitalize;
-    margin-top: 2 rem;
-}
-
-/* Grid container */
-.placed-orders .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 1.5rem;
-}
-
-/* Each order box */
-.placed-orders .box {
-      background: linear-gradient(to right, #8fed6d, #42b021);
-    border-radius: 0.8rem;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.placed-orders .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-/* Labels and spans */
-.placed-orders .box p {
-    margin: 0.5rem 0;
-    color: #555;
-    font-size: 1rem;
-}
-
-.placed-orders .box span {
-    font-weight: 600;
-    color: #111;
-}
-
-/* Dropdown */
-.placed-orders .box .drop-down {
-    width: 100%;
-    padding: 0.7rem;
-    margin: 1rem 0;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    background: #f0f0f0;
-}
-
-/* Buttons */
-.placed-orders .box .flex-btn {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.placed-orders .box .option-btn,
-.placed-orders .box .delete-btn {
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    transition: background 0.3s ease;
-}
-
-/* Update Button */
-.placed-orders .box .option-btn {
-    background-color: #3498db;
-    color: white;
-}
-
-.placed-orders .box .option-btn:hover {
-    background-color: #2980b9;
-}
-
-/* Delete Button */
-.placed-orders .box .delete-btn {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.placed-orders .box .delete-btn:hover {
-    background-color: #c0392b;
-}
-
-/* Empty message */
-.placed-orders .empty {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #999;
-}
-
-.user-accounts {
-    padding: 2rem;
-    background: #f7f7f7;
-    min-height: 100vh;
-}
-
-.user-accounts .title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #333;
-    text-transform: capitalize;
-}
-
-/* Container for user boxes */
-.user-accounts .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    width: 60%;
-    margin: 0 auto;
-    padding: 1rem;
-}
 /* Individual user box styling */
-.user-accounts .box {
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: 2rem;
-    transition: 0.3s ease;
-    text-align: center;
-    
-}
 
-.user-accounts .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.user-accounts .box img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border: 3px solid #eee;
-}
-
-.user-accounts .box p {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-    color: #444;
-}
-
-.user-accounts .box span {
-    font-weight: bold;
-    color: #111;
-}
-
-.user-accounts .box .delete-btn {
-    display: inline-block;
-    margin-top: 1rem;
-    background: #ff3b3b;
-    color: #fff;
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: background 0.3s ease;
-}
-
-.user-accounts .box .delete-btn:hover {
-    background: #d62828;
-}
 
 /* Form Section */
 .add-products form {
@@ -536,117 +425,6 @@
 .add-products .btn:hover {
    background: #218838;
 }
-
-/* Product Display Section */
-.show-products .box-container {
-   display: flex;
-      justify-content: center;
-   gap: 2rem;
-   padding: 1rem 2rem;
-   max-width: 1200px;
-   margin: auto;
-}
-
-
-.show-products .box {
-   background: #fff;
-   border-radius: 10px;
-   padding: 1.5rem;
-   text-align: center;
-   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-   transition: transform 0.2s ease;
-   width: fit-content;
-   max-width: 300px;
-   margin: auto;
-   position: relative;
-   background: linear-gradient(to right, #c0c7bd, #d7d9d6);
-    border: 1px solid #ddd;
-}
-.show-products .title ,
-.add-products .title {
-   text-align: center;
-   font-size: 2.5rem;
-   margin-bottom: 1.5rem;
-   color: green;
-   font-weight: bold;
-   text-transform: capitalize;
-    margin-top: 2rem;
-}
-.show-products .box:hover {
-   transform: translateY(-5px);
-}
-
-.show-products .box img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border: 3px solid #eee;
-}
-
-.show-products .box .name {
-   font-size: 1.2rem;
-   font-weight: bold;
-   margin-bottom: 5px;
-}
-
-.show-products .box .cat {
-   font-size: 0.95rem;
-   color: #777;
-   margin-bottom: 10px;
-   text-transform: capitalize;
-}
-
-.show-products .box .details {
-   font-size: 0.95rem;
-   color: #444;
-   margin-bottom: 15px;
-}
-
-.show-products .box .price {
-   font-size: 1.1rem;
-   font-weight: bold;
-   color: #28a745;
-   margin-bottom: 10px;
-}
-
-/* Buttons */
-.flex-btn {
-   display: flex;
-   justify-content: center;
-   gap: 10px;
-   margin-top: 10px;
-}
-
-.option-btn,
-.delete-btn {
-   padding: 10px 14px;
-   border-radius: 5px;
-   color: #fff;
-   font-size: 0.9rem;
-   cursor: pointer;
-   text-decoration: none;
-   transition: background 0.3s;
-}
-
-.option-btn {
-   background: #09ce09;
-}
-
-.option-btn:hover {
-   background: #08b808;
-}
-
-.delete-btn {
-   background: #dc3545;
-}
-
-.delete-btn:hover {
-   background: #c82333;
-}
-
-/* ---------- Responsive Styles ---------- */
 
 @media (max-width: 768px) {
     .header .flex {
