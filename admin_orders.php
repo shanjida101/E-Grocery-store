@@ -1,103 +1,217 @@
 <?php
+require_once 'config.php';
 
-@include 'config.php';
-// Start a session to store user data across pages
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+if (!isset($conn)) {
+   die("❌ Database connection not established. Check config.php.");
 }
 
-$admin_id = $_SESSION['admin_id'];
+session_start();
 
-if(!isset($admin_id)){
+$admin_id = $_SESSION['admin_id'] ?? null;
+
+if (!$admin_id) {
    header('location:login.php');
-};
+   exit();
+}
 
-if(isset($_POST['update_order'])){
-
+// Update order status
+if (isset($_POST['update_order'])) {
    $order_id = $_POST['order_id'];
    $update_payment = $_POST['update_payment'];
-   $update_payment = filter_var($update_payment, FILTER_SANITIZE_STRING);
-   $update_orders = $conn->prepare("UPDATE `orders` SET payment_status = ? WHERE id = ?");
-   $update_orders->execute([$update_payment, $order_id]);
-   $message[] = 'payment has been updated!';
-
-};
-
-if(isset($_GET['delete'])){
-
-   $delete_id = $_GET['delete'];
-   $delete_orders = $conn->prepare("DELETE FROM `orders` WHERE id = ?");
-   $delete_orders->execute([$delete_id]);
-   header('location:admin_orders.php');
-
+   $update_order = $conn->prepare("UPDATE `orders` SET payment_status = ? WHERE id = ?");
+   $update_order->execute([$update_payment, $order_id]);
+   header("Location: admin_orders.php");
+   exit();
 }
 
+// Delete order
+if (isset($_GET['delete'])) {
+   $delete_id = $_GET['delete'];
+   $delete_order = $conn->prepare("DELETE FROM `orders` WHERE id = ?");
+   $delete_order->execute([$delete_id]);
+   header('location:admin_orders.php');
+   exit();
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>orders</title>
-
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <!-- custom css file link  -->
+   <title>Admin Orders</title>
    <link rel="stylesheet" href="css/admin_page.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+   <style>
+     /* Custom dropdown style */
+select {
+   padding: 8px 12px;
+   border: 2px solid #2196f3;
+   border-radius: 6px;
+   font-size: 16px;
+   background-color: #fff;
+   color: #333;
+   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+   outline: none;
+   appearance: none;
+   cursor: pointer;
+   min-width: 140px;
+}
 
+/* Add a little arrow styling */
+select:focus {
+   border-color: #1976d2;
+   box-shadow: 0 0 4px rgba(25, 118, 210, 0.6);
+}
+
+select:hover {
+   border-color: #1976d2;
+}
+
+      .placed-orders {
+         max-width: 1000px;
+         margin: auto;
+      }
+      .title {
+         text-align: center;
+         margin-bottom: 30px;
+         color: darkgreen;
+      }
+      .search-form input,
+      .search-form select,
+      .search-form button {
+         padding: 8px;
+         margin: 5px;
+         border-radius: 5px;
+         border: 1px solid #ccc;
+      }
+      .list-container {
+         margin-top: 20px;
+      }
+      .order-row {
+         background-color: #fdfdfd;
+         border: 1px solid #ccc;
+         padding: 12px;
+         cursor: pointer;
+         font-weight: bold;
+         margin-bottom: 5px;
+         border-radius: 6px;
+         transition: background-color 0.2s;
+      }
+      .order-row:hover {
+         background-color: #e9f5e9;
+      }
+      .order-details {
+         background-color: #ffffff;
+         border: 1px solid #ddd;
+         padding: 15px;
+         margin-bottom: 15px;
+         border-radius: 5px;
+         display: none;
+      }
+      .order-details form {
+         margin-top: 10px;
+      }
+      .option-btn,
+      .delete-btn {
+         margin-top: 10px;
+         padding: 6px 12px;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+      }
+      .option-btn {
+         background-color: #2196f3;
+         color: white;
+      }
+      .delete-btn {
+         background-color: #f44336;
+         color: white;
+         margin-left: 10px;
+      }
+   </style>
 </head>
 <body>
-   
 <?php include 'admin_header.php'; ?>
-
 <section class="placed-orders">
+   <h1 class="title">Placed Orders</h1>
 
-   <h1 class="title">placed orders</h1>
+   <!-- Search Form -->
+   <form method="GET" class="search-form" style="text-align:center;">
+      <input type="text" name="search_id" placeholder="Search by Order ID" value="<?= isset($_GET['search_id']) ? htmlspecialchars($_GET['search_id']) : '' ?>">
+      <input type="text" name="user_id" placeholder="Search by User ID" value="<?= isset($_GET['user_id']) ? htmlspecialchars($_GET['user_id']) : '' ?>">
+      <select name="status_filter">
+         <option value="">All</option>
+         <option value="pending" <?= (isset($_GET['status_filter']) && $_GET['status_filter'] === 'pending') ? 'selected' : '' ?>>Pending</option>
+         <option value="completed" <?= (isset($_GET['status_filter']) && $_GET['status_filter'] === 'completed') ? 'selected' : '' ?>>Completed</option>
+      </select>
+      <button type="submit">Search</button>
+   </form>
 
-   <div class="box-container">
-
+   <div class="list-container">
       <?php
-         $select_orders = $conn->prepare("SELECT * FROM `orders`");
-         $select_orders->execute();
+         $query = "SELECT * FROM `orders` WHERE 1";
+         $params = [];
+
+         if (!empty($_GET['search_id'])) {
+            $query .= " AND id = ?";
+            $params[] = $_GET['search_id'];
+         }
+
+         if (!empty($_GET['user_id'])) {
+            $query .= " AND user_id = ?";
+            $params[] = $_GET['user_id'];
+         }
+
+         if (!empty($_GET['status_filter'])) {
+            $query .= " AND payment_status = ?";
+            $params[] = $_GET['status_filter'];
+         }
+
+         $select_orders = $conn->prepare($query);
+         $select_orders->execute($params);
+
          if($select_orders->rowCount() > 0){
-            while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+            while($order = $select_orders->fetch(PDO::FETCH_ASSOC)){
       ?>
-      <div class="box">
-         <p> user id : <span><?= $fetch_orders['user_id']; ?></span> </p>
-         <p> placed on : <span><?= $fetch_orders['placed_on']; ?></span> </p>
-         <p> name : <span><?= $fetch_orders['name']; ?></span> </p>
-         <p> email : <span><?= $fetch_orders['email']; ?></span> </p>
-         <p> number : <span><?= $fetch_orders['number']; ?></span> </p>
-         <p> address : <span><?= $fetch_orders['address']; ?></span> </p>
-         <p> total products : <span><?= $fetch_orders['total_products']; ?></span> </p>
-         <p> total price : <span>৳<?= $fetch_orders['total_price']; ?>/-</span> </p>
-         <p> payment method : <span><?= $fetch_orders['method']; ?></span> </p>
+      <div class="order-row" onclick="toggleDetails('details-<?= $order['id']; ?>')">
+         <strong>Order #<?= $order['id']; ?></strong> — <?= htmlspecialchars($order['name']); ?> — <em><?= $order['payment_status']; ?></em>
+      </div>
+
+      <div class="order-details" id="details-<?= $order['id']; ?>">
+         <p><strong>User ID:</strong> <?= $order['user_id']; ?></p>
+         <p><strong>Placed On:</strong> <?= $order['placed_on']; ?></p>
+         <p><strong>Email:</strong> <?= htmlspecialchars($order['email']); ?></p>
+         <p><strong>Number:</strong> <?= $order['number']; ?></p>
+         <p><strong>Address:</strong> <?= htmlspecialchars($order['address']); ?></p>
+         <p><strong>Products:</strong> <?= htmlspecialchars($order['total_products']); ?></p>
+         <p><strong>Total Price:</strong> ৳<?= $order['total_price']; ?>/-</p>
+         <p><strong>Method:</strong> <?= $order['method']; ?></p>
+
          <form action="" method="POST">
-            <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
-            <select name="update_payment" class="drop-down">
-               <option value="" selected disabled><?= $fetch_orders['payment_status']; ?></option>
-               <option value="pending">pending</option>
-               <option value="completed">completed</option>
+            <input type="hidden" name="order_id" value="<?= $order['id']; ?>">
+            <select name="update_payment">
+               <option value="pending" <?= $order['payment_status'] == 'pending' ? 'selected' : '' ?>>Pending</option>
+               <option value="completed" <?= $order['payment_status'] == 'completed' ? 'selected' : '' ?>>Completed</option>
             </select>
-            <div class="flex-btn">
-               <input type="submit" name="update_order" class="option-btn" value="Update">
-               <a href="admin_orders.php?delete=<?= $fetch_orders['id']; ?>" class="delete-btn" onclick="return confirm('delete this order?');">Delete</a>
-            </div>
+            <input type="submit" name="update_order" value="Update" class="option-btn">
+            <a href="admin_orders.php?delete=<?= $order['id']; ?>" class="delete-btn" onclick="return confirm('Delete this order?')">Delete</a>
          </form>
       </div>
       <?php
+            }
+         } else {
+            echo "<p class='empty'>No orders found!</p>";
          }
-      }else{
-         echo '<p class="empty">no orders placed yet!</p>';
-      }
       ?>
-
    </div>
-
 </section>
+
+<script>
+   function toggleDetails(id) {
+      const elem = document.getElementById(id);
+      elem.style.display = (elem.style.display === "none" || elem.style.display === "") ? "block" : "none";
+   }
+</script>
 
 </body>
 </html>
