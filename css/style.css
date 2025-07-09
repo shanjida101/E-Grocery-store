@@ -1,0 +1,12 @@
+.filter-form {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status.order-placed { color: gray; }
+.status.packed { color: orange; }
+.status.shipped { color: dodgerblue; }
+.status.out-for-delivery { color: darkorange; }
+.status.delivered { color: green; font-weight: bold; }
