@@ -16,6 +16,7 @@ if (!$admin_id) {
    <title>Admin Dashboard</title>
    <link rel="stylesheet" href="css/admin_page.css">
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
 </head>
 <body>
 

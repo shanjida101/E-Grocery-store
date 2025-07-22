@@ -102,7 +102,8 @@ if (isset($_GET['delete'])) {
       .title {
          text-align: center;
          font-size: 2.5rem;
-         margin-bottom: 1rem;
+         margin-top: 1rem;
+         margin-bottom: 1.5rem;
          color: #333;
          text-transform: capitalize;
          position: relative;

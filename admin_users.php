@@ -71,6 +71,24 @@ if (isset($_GET['delete'])) {
       .delete-btn:hover {
          background-color: #c82333;
       }
+      .title {
+         text-align: center;
+         font-size: 2.5rem;
+         margin-top: 2rem;
+         color: #333;
+         text-transform: capitalize;
+         position: relative;
+      }
+
+      .title::after {
+         content: '';
+         display: block;
+         width: 60px;
+         height: 3px;
+         background: #28a745;
+         margin: 0.6rem auto 0;
+         border-radius: 10px;
+      }
    </style>
 </head>
 <body>

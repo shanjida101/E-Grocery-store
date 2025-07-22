@@ -4,14 +4,25 @@ include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+    $password = $_POST['password'];  // keep raw for validation
+    $confirm_password = $_POST['confirm_password'];
 
-    if ($password !== $_POST['confirm_password']) {
-        header("Location: register.php?error=Passwords do not match");
+    // Password Strength Check
+    if (
+        strlen($password) < 8 ||
+        !preg_match('/[A-Z]/', $password) ||
+        !preg_match('/[a-z]/', $password) ||
+        !preg_match('/[0-9]/', $password) ||
+        !preg_match('/[\W]/', $password)
+    ) {
+        header("Location: register.php?error=Password must be at least 8 characters and include uppercase, lowercase, number, and symbol");
         exit();
     }
 
-    $confirm_password = $_POST['confirm_password'];
+    if ($password !== $confirm_password) {
+        header("Location: register.php?error=Passwords do not match");
+        exit();
+    }
 
     $profile_picture = $_FILES['profile_picture']['name'];
     $profile_picture_size = $_FILES['profile_picture']['size'];
@@ -44,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
-
     <link rel="stylesheet" href="css/component.css">
 </head>
 <body>
@@ -74,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"><br><br>
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required><br><br>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 symbol)" required><br><br>
 
     <label for="confirm_password">Confirm Password:</label>
     <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm your password" required><br><br>
@@ -91,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     const successMsg = document.getElementById('success-message');
     const errorMsg = document.getElementById('error-message');
 
-    // Clean the URL of query params
     if (window.location.search.includes('error=') || window.location.search.includes('success=')) {
         const url = new URL(window.location);
         url.searchParams.delete('error');
@@ -99,13 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         window.history.replaceState({}, document.title, url.pathname + url.search);
     }
 
-    // Hide messages after 3 seconds
     setTimeout(() => {
         if (successMsg) successMsg.style.display = 'none';
         if (errorMsg) errorMsg.style.display = 'none';
     }, 3000);
 
-    // Redirect to login page if registration is successful
     if (successMsg) {
         setTimeout(() => {
             window.location.href = "login.php";

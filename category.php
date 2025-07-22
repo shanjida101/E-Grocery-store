@@ -7,7 +7,6 @@ if(!isset($user_id)){
    header('location:login.php');
 }
 
-// Add to Wishlist
 if(isset($_POST['add_to_wishlist'])){
    $pid = filter_var($_POST['pid'], FILTER_SANITIZE_STRING);
    $p_name = filter_var($_POST['p_name'], FILTER_SANITIZE_STRING);
@@ -25,13 +24,12 @@ if(isset($_POST['add_to_wishlist'])){
    } elseif($check_cart->rowCount() > 0){
       $message[] = 'Already in cart!';
    } else {
-      $add = $conn->prepare("INSERT INTO `wishlist`(user_id, pid, name, price, image) VALUES(?,?,?,?,?)");
-      $add->execute([$user_id, $pid, $p_name, $p_price, $p_image]);
+      $insert = $conn->prepare("INSERT INTO `wishlist`(user_id, pid, name, price, image) VALUES(?,?,?,?,?)");
+      $insert->execute([$user_id, $pid, $p_name, $p_price, $p_image]);
       $message[] = 'Added to wishlist!';
    }
 }
 
-// Add to Cart
 if(isset($_POST['add_to_cart'])){
    $pid = filter_var($_POST['pid'], FILTER_SANITIZE_STRING);
    $p_name = filter_var($_POST['p_name'], FILTER_SANITIZE_STRING);
@@ -49,8 +47,8 @@ if(isset($_POST['add_to_cart'])){
       $check_wishlist->execute([$p_name, $user_id]);
 
       if($check_wishlist->rowCount() > 0){
-         $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE name = ? AND user_id = ?");
-         $delete_wishlist->execute([$p_name, $user_id]);
+         $delete = $conn->prepare("DELETE FROM `wishlist` WHERE name = ? AND user_id = ?");
+         $delete->execute([$p_name, $user_id]);
       }
 
       $insert = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
@@ -64,86 +62,77 @@ if(isset($_POST['add_to_cart'])){
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>Shop - All Products</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Category</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/shop.css">
+   <link rel="stylesheet" href="css/shop.css"> <!-- Ensure this has updated product styles -->
 </head>
 <body>
 
 <?php include 'header.php'; ?>
 
-<section class="p-category">
-   <a href="category.php?category=fruits">Fruits</a>
-   <a href="category.php?category=vegitables">Vegetables</a>
-   <a href="category.php?category=meat">Meat</a>
-</section>
-
 <section class="products">
-   <h1 class="title">All Products</h1>
+   <h1 class="title">Products by Category</h1>
    <div class="box-container">
    <?php
-      $select_products = $conn->prepare("SELECT * FROM `products`");
-      $select_products->execute();
+      $category_name = $_GET['category'];
+      $select = $conn->prepare("SELECT * FROM `products` WHERE category = ?");
+      $select->execute([$category_name]);
 
-      if($select_products->rowCount() > 0){
-         while($fetch = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+      if($select->rowCount() > 0){
+         while($product = $select->fetch(PDO::FETCH_ASSOC)){
    ?>
- <form action="" method="POST" class="box">
-   <a href="view_page.php?pid=<?= $fetch['id']; ?>" class="product-click-area">
-      <img src="uploaded_img/<?= $fetch['image']; ?>" alt="">
-      <div class="name"><?= $fetch['name']; ?></div>
-   </a>
+   <form action="" class="box" method="POST">
+      <a href="view_page.php?pid=<?= $product['id']; ?>" class="product-click-area">
+         <img src="uploaded_img/<?= $product['image']; ?>" alt="">
+         <div class="name"><?= $product['name']; ?></div>
+      </a>
 
-   <div class="price">৳<span><?= $fetch['price']; ?></span>/-</div>
+      <div class="price">৳<span><?= $product['price']; ?></span>/-</div>
 
-   <input type="hidden" name="pid" value="<?= $fetch['id']; ?>">
-   <input type="hidden" name="p_name" value="<?= $fetch['name']; ?>">
-   <input type="hidden" name="p_price" value="<?= $fetch['price']; ?>">
-   <input type="hidden" name="p_image" value="<?= $fetch['image']; ?>">
+      <input type="hidden" name="pid" value="<?= $product['id']; ?>">
+      <input type="hidden" name="p_name" value="<?= $product['name']; ?>">
+      <input type="hidden" name="p_price" value="<?= $product['price']; ?>">
+      <input type="hidden" name="p_image" value="<?= $product['image']; ?>">
 
-   <div class="quantity-wrapper">
-      <button type="button" class="qty-btn minus">–</button>
-      <input type="number" name="p_qty" value="1" class="qty-input" readonly>
-      <button type="button" class="qty-btn plus">+</button>
-   </div>
+      <div class="quantity-wrapper">
+         <button type="button" class="qty-btn minus">–</button>
+         <input type="number" name="p_qty" value="1" class="qty-input" readonly>
+         <button type="button" class="qty-btn plus">+</button>
+      </div>
 
-   <input type="submit" value="Add to Wishlist" class="option-btn" name="add_to_wishlist">
-   <input type="submit" value="Add to Cart" class="btn" name="add_to_cart">
-</form>
-            
+      <input type="submit" value="Add to Wishlist" class="option-btn" name="add_to_wishlist">
+      <input type="submit" value="Add to Cart" class="btn" name="add_to_cart">
+   </form>
    <?php
          }
       } else {
-         echo '<p class="empty">No products available.</p>';
+         echo '<p class="empty">No products available in this category!</p>';
       }
    ?>
    </div>
 </section>
+
+<?php include 'footer.php'; ?>
+
 <script>
 document.querySelectorAll('.box').forEach(box => {
    const qtyInput = box.querySelector('.qty-input');
-   const plusBtn = box.querySelector('.plus');
-   const minusBtn = box.querySelector('.minus');
+   const plus = box.querySelector('.plus');
+   const minus = box.querySelector('.minus');
 
-   plusBtn.onclick = () => {
-      let qty = parseInt(qtyInput.value);
-      qtyInput.value = ++qty;
+   plus.onclick = () => {
+      qtyInput.value = parseInt(qtyInput.value) + 1;
    };
-
-   minusBtn.onclick = () => {
-      let qty = parseInt(qtyInput.value);
-      if (qty > 1) {
-         qtyInput.value = --qty;
+   minus.onclick = () => {
+      if (parseInt(qtyInput.value) > 1) {
+         qtyInput.value = parseInt(qtyInput.value) - 1;
       }
    };
 });
 </script>
-
-<?php include 'footer.php'; ?>
-
-
 
 </body>
 </html>
