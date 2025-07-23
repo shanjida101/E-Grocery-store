@@ -59,7 +59,7 @@ if (isset($_POST['order'])) {
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/.css">
 </head>
 <body>
 
