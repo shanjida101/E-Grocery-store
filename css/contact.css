@@ -32,12 +32,13 @@ form {
    gap: 15px;
 }
 
-.box {
+.box-contact {
+   margin-top: 10px;
    padding: 12px 15px;
    font-size: 16px;
    border: 1px solid #ccc;
+   background: #f9f9f9;
    border-radius: 5px;
-   outline: none;
    transition: 0.3s ease;
    resize: vertical;
 }
