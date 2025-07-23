@@ -50,6 +50,7 @@ if (isset($_GET['delete_all'])) {
     <title>Wishlist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/wishlist.css">
 </head>
 <body>
 
@@ -67,9 +68,9 @@ if (isset($_GET['delete_all'])) {
             while ($item = $wishlist->fetch(PDO::FETCH_ASSOC)):
                 $grand_total += $item['price'];
         ?>
-        <form method="POST" class="box">
-            <a href="wishlist.php?delete=<?= $item['id']; ?>" class="fas fa-times" onclick="return confirm('Delete this item?');"></a>
-            <a href="view_page.php?pid=<?= $item['pid']; ?>" class="fas fa-eye"></a>
+<a href="view_page.php?pid=<?= $item['pid']; ?>" class="box" style="text-decoration: none; color: inherit;">
+<form method="POST" class="box-inner">
+
             <img src="uploaded_img/<?= $item['image']; ?>" alt="">
             <div class="name"><?= $item['name']; ?></div>
             <div class="price">৳<?= $item['price']; ?>/-</div>
