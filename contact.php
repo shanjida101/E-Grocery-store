@@ -52,6 +52,7 @@ if(isset($_POST['send'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/home.css">
+   <link rel="stylesheet" href="css/contact.css">
 
 </head>
 <body>
