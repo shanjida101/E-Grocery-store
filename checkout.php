@@ -70,6 +70,13 @@ if (isset($_POST['order'])) {
 <body>
 
 <?php include 'header.php'; ?>
+<?php
+if (!empty($message)) {
+   foreach ($message as $msg) {
+      echo "<div class='message'><span>$msg</span></div>";
+   }
+}
+?>
 
 <section class="display-orders">
    <?php
@@ -81,7 +88,15 @@ if (isset($_POST['order'])) {
       while ($item = $cart_items->fetch(PDO::FETCH_ASSOC)) {
          $total = $item['price'] * $item['quantity'];
          $grand_total += $total;
-         echo "<p>{$item['name']} <span>(${$item['price']} x {$item['quantity']})</span></p>";
+         echo <p>
+   <?= htmlspecialchars($fetch_cart_items['name']); ?>
+   <span>(<?= '$' . number_format($fetch_cart_items['price'], 2) . ' x ' . $fetch_cart_items['quantity']; ?>)</span>
+</p>
+         "<div class='order-item'>";
+         echo "<span>" . htmlspecialchars($item['name']) . " (x" . $item['quantity'] . ")</span>";
+         echo "<span class='price'>$" . number_format($total, 2) . "</span>";
+         echo "</div>";
+
       }
       echo "<div class='grand-total'>Grand Total: <span>$${grand_total}</span></div>";
    } else {
