@@ -59,7 +59,9 @@ if (isset($_POST['order'])) {
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-    <link rel="stylesheet" href="css/.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/checkout.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
 </head>
 <body>
 
