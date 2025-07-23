@@ -1,0 +1,635 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.header {
+    background-color: #f8f9fa;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+}
+
+.header .flex .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none !important;
+}
+
+.header .flex .logo span {
+    color: #28a745;
+}
+
+.header .flex .navbar {
+    display: flex;
+    gap: 1rem;
+}
+
+.header .flex .navbar a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.header .flex .navbar a:hover {
+    background-color: #62c278;
+    color: #f8f9fa;
+}
+
+.header .flex .icons > * {
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.header .flex .icons > *:hover {
+    color: #28a745;
+}
+
+#menu-btn {
+    display: none;
+}
+.header .flex .profile {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 1.5rem 1rem;
+    width: 250px;
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    text-align: center;
+}
+
+/* Show on toggle */
+.header .flex .profile.active {
+    display: block;
+}
+
+/* Profile Image */
+.header .flex .profile img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #ccc;
+}
+
+/* Name text */
+.profile p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Main buttons */
+.header .flex .profile .btn,
+.header .flex .profile .delete-btn,
+.header .flex .profile .option-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 0.5rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Green update button */
+.header .flex .profile .btn {
+    background-color: #28a745;
+}
+
+.header .flex .profile .btn:hover {
+    background-color: #218838;
+}
+
+/* Red logout button */
+.header .flex .profile .delete-btn {
+    background-color: #dc3545;
+}
+
+.header .flex .profile .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Dashboard */
+.dashboard .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 4%;
+}
+
+.dashboard .box-container .box {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.dashboard .box-container .box:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard .box-container .box h3 {
+    font-size: 1.8rem;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard .box-container .box p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.dashboard .box-container .box .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #28a745 ;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.dashboard .box-container .box .btn:hover {
+    background-color: #218838;
+}
+.dashboard h1 {
+    text-align: center;
+    font-size: 2.5rem;
+  
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    padding-top: 0.5rem;
+    position: relative;
+}
+
+.dashboard h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #28a745;
+    margin: 0.6rem auto 0;
+    border-radius: 10px;
+}
+
+
+.dashboard .box-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 2rem;
+   justify-content: space-between;
+}
+.chart-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.chart-box {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1 1 45%; /* 45% width, responsive */
+    min-height: 420px; /* Increase height for content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+
+.chart-box h3 {
+   font-size: 1.8rem;
+   color: #28a745;
+   margin-bottom: 1rem;
+}
+
+.chart-box .legend {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 0.9rem;
+}
+
+.chart-box:hover {
+   transform: translateY(-5px);
+}
+.chart-container .chart-box {
+   flex: 1; 
+   background: #fff;
+   border-radius: 1rem;
+   padding: 2rem;
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+   text-align: center;
+   transition: transform 0.2s;
+}
+.box-container .chart-box h3 {
+   font-size: 1.8rem;
+   color: #28a745;
+   margin-bottom: 1rem;
+}
+
+.box-container .chart-box .legend {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 0.9rem;
+}
+
+.chart-box:hover {
+   transform: translateY(-5px);
+}
+.chart-box canvas {
+    width: 100% !important;
+    height: 300px !important;
+    max-height: 300px;
+    margin: 0 auto;
+}
+/* Add Products and Show Products */
+
+
+
+
+.add-products,
+.show-products {
+  max-width: 1100px;
+  margin: auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+.add-products h1,
+.show-products h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+
+.add-products .flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
+.inputBox .box,
+textarea.box,
+input.box,
+select.box {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+textarea.box {
+  resize: vertical;
+}
+
+.btn {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  background-color: #27ae60;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  width: fit-content;
+  margin-top: 10px;
+  align-self: flex-start;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #219150;
+}
+
+
+
+/* Form Section */
+.add-products form {
+   max-width: 800px;
+   margin: auto;
+   background: #fff;
+   border-radius: 10px;
+   padding: 2rem;
+   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.add-products .flex {
+   display: flex;
+   gap: 1.5rem;
+   flex-wrap: wrap;
+}
+
+
+
+.add-products .box {
+   padding: 10px 14px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   margin-bottom: 15px;
+   font-size: 1rem;
+   transition: border 0.3s;
+    background: #f8f9fa;
+    max-width: 60%;
+}
+
+.add-products .box:focus {
+   border-color: #28a745;
+   outline: none;
+}
+
+.add-products .btn {
+   background: #28a745;
+   color: white;
+   padding: 12px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 1rem;
+   transition: background 0.3s;
+   margin-top: 2px;
+    
+    margin-left: 45%;
+}
+
+.add-products .btn:hover {
+   background: #218838;
+}
+.show-products {
+  padding: 2rem;
+}
+
+.show-products .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* responsive */
+  gap: 2rem;
+}
+
+.show-products .box {
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  position: relative;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.show-products .box:hover {
+  transform: translateY(-5px);
+}
+
+.show-products .box .price {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #27ae60;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.show-products .box img {
+   width: 100px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-bottom: 10px;
+    border: 3px solid #ccc;
+}
+
+.show-products .box .name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.show-products .box .cat {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.show-products .box .details {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.show-products .box .flex-btn {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.show-products .box .option-btn,
+.show-products .box .delete-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.show-products .box .option-btn {
+  background-color: orange;
+  text-decoration: none;
+}
+
+.show-products .box .delete-btn {
+  background-color: crimson;
+  text-decoration: none;
+}
+
+
+
+
+
+/* Messages Section */
+
+
+/* Box Container */
+.messages .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
+/* Title Styling */
+.messages .title {
+    background: linear-gradient(to right, #8fed6d, #42b021);
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 2rem auto;
+    width: fit-content;
+    padding: 0.8rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+}
+
+/* Message Box Styling */
+.messages .box {
+    background: #fdfdfd;
+    border-radius: 1rem;
+    padding: 1.8rem 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.messages .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Text Styling */
+.messages .box p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+}
+
+.messages .box span {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Delete Button */
+.messages .box .delete-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #dc3545;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.messages .box .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Empty message styling */
+.messages .empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 2rem;
+}
+
+
+/* Individual user box styling */
+
+
+
+
+@media (max-width: 768px) {
+    .header .flex {
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;  /* This pushes logo to left, icons to right */
+        align-items: center; 
+    }
+
+    .header .flex .logo {
+        margin-bottom: 0.5rem;
+    }
+
+    .header .flex .navbar {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #f8f9fa;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        z-index: 1001;
+    }
+
+    .header .flex .navbar.active {
+        display: flex;
+    }
+
+    .header .flex .navbar a {
+        width: 100%;
+        text-align: left;
+        padding: 1rem;
+        border-radius: 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #menu-btn {
+        display: inline-block;
+        font-size: 2rem;
+        cursor: pointer;;
+        margin-left: auto;
+    }
+}

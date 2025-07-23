@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.header {
+    background-color: #f8f9fa;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+}
+
+.header .flex .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none !important;
+}
+
+.header .flex .logo span {
+    color: #28a745;
+}
+
+.header .flex .navbar {
+    display: flex;
+    gap: 1rem;
+}
+
+.header .flex .navbar a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.header .flex .navbar a:hover {
+    background-color: #62c278;
+    color: #f8f9fa;
+}
+
+.header .flex .icons > * {
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.header .flex .icons > *:hover {
+    color: #28a745;
+}
+
+#menu-btn {
+    display: none;
+}
+.header .flex .profile {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 1.5rem 1rem;
+    width: 250px;
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    text-align: center;
+}
+
+/* Show on toggle */
+.header .flex .profile.active {
+    display: block;
+}
+
+/* Profile Image */
+.header .flex .profile img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #ccc;
+}
+
+/* Name text */
+.profile p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Main buttons */
+.header .flex .profile .btn,
+.header .flex .profile .delete-btn,
+.header .flex .profile .option-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 0.5rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Green update button */
+.header .flex .profile .btn {
+    background-color: #28a745;
+}
+
+.header .flex .profile .btn:hover {
+    background-color: #218838;
+}
+
+/* Red logout button */
+.header .flex .profile .delete-btn {
+    background-color: #dc3545;
+}
+
+.header .flex .profile .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* admin_update_profile.css */
+
+
+.title {
+   text-align: center;
+   font-size: 2rem;
+   margin-bottom: 2rem;
+   color: black;
+   
+}
+
+.update-profile {
+   max-width: 800px;
+   margin: 0 auto;
+   background: #fff;
+   padding: 2rem;
+   border-radius: 0.5rem;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.update-profile form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.update-profile img {
+   width: 120px;
+   height: 120px;
+   object-fit: cover;
+   border-radius: 50%;
+   margin-bottom: 1.5rem;
+   border: 3px solid #ccc;
+}
+
+.flex {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 2rem;
+   width: 100%;
+   justify-content: space-between;
+}
+
+.inputBox {
+   flex: 1 1 300px;
+}
+
+.inputBox span {
+   display: block;
+   font-weight: 600;
+   margin-bottom: 0.5rem;
+   color: #444;
+}
+
+.inputBox .box {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-size: 1rem;
+   margin-bottom: 1rem;
+}
+
+.flex-btn {
+   margin-top: 2rem;
+   display: flex;
+   gap: 1rem;
+   justify-content: center;
+   width: 100%;
+}
+
+.btn,
+.option-btn {
+   padding: 10px 20px;
+   font-size: 1rem;
+   font-weight: 500;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+   text-decoration: none;
+   text-align: center;
+   display: inline-block;
+   transition: background-color 0.3s ease;
+}
+
+.btn {
+   background-color: #28a745;
+   color: white;
+}
+
+.btn:hover {
+   background-color: #218838;
+}
+
+.option-btn {
+   background-color: #ffc107;
+   color: #000;
+}
+
+.option-btn:hover {
+   background-color: #e0a800;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+   .flex {
+      flex-direction: column;
+   }
+}
