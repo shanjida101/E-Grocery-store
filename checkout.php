@@ -102,33 +102,75 @@ echo "<p>" . htmlspecialchars($item['name']) . " <span>(" . '৳' . number_forma
    }
    ?>
 </section>
-
 <section class="checkout-orders">
-   <form method="POST">
-      <h3>Place Your Order</h3>
+
+   <form action="" method="POST">
+
+      <h3>🛒 Shipping Information</h3>
+
       <div class="flex">
-         <div class="inputBox"><span>Name:</span><input type="text" name="name" required class="box"></div>
-         <div class="inputBox"><span>Phone:</span><input type="number" name="number" required class="box"></div>
-         <div class="inputBox"><span>Email:</span><input type="email" name="email" required class="box"></div>
          <div class="inputBox">
-            <span>Payment Method:</span>
-            <select name="method" class="box" required>
-               <option value="cash on delivery">Cash on Delivery</option>
-               <option value="credit card">Credit Card</option>
-               <option value="paytm">Paytm</option>
-               <option value="paypal">Paypal</option>
-            </select>
+            <span>Your Name:</span>
+            <input type="text" name="name" placeholder="Enter your name" class="box" required>
          </div>
-         <div class="inputBox"><span>Flat No.:</span><input type="text" name="flat" required class="box"></div>
-         <div class="inputBox"><span>Street:</span><input type="text" name="street" required class="box"></div>
-         <div class="inputBox"><span>City:</span><input type="text" name="city" required class="box"></div>
-         <div class="inputBox"><span>State:</span><input type="text" name="state" required class="box"></div>
-         <div class="inputBox"><span>Country:</span><input type="text" name="country" required class="box"></div>
-         <div class="inputBox"><span>Pin Code:</span><input type="number" name="pin_code" required class="box"></div>
+         <div class="inputBox">
+            <span>Your Number:</span>
+            <input type="number" name="number" placeholder="Enter your phone number" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>Your Email:</span>
+            <input type="email" name="email" placeholder="Enter your email" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>Flat / Apartment No.:</span>
+            <input type="text" name="flat" placeholder="e.g. Flat 10B" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>Street:</span>
+            <input type="text" name="street" placeholder="e.g. Dhanmondi 27" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>City:</span>
+            <input type="text" name="city" placeholder="e.g. Dhaka" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>State:</span>
+            <input type="text" name="state" placeholder="e.g. Dhaka" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>Country:</span>
+            <input type="text" name="country" placeholder="e.g. Bangladesh" class="box" required>
+         </div>
+         <div class="inputBox">
+            <span>Pin Code:</span>
+            <input type="number" min="0" name="pin_code" placeholder="e.g. 1209" class="box" required>
+         </div>
       </div>
-      <input type="submit" name="order" class="btn <?= ($grand_total > 0) ? '' : 'disabled'; ?>" value="Place Order">
+
+      <h3>💳 Payment Method</h3>
+      <div class="inputBox">
+         <select name="method" class="box" required>
+            <option value="">-- Select Payment Method --</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="bKash">bKash</option>
+            <option value="Nagad">Nagad</option>
+            <option value="Rocket">Rocket</option>
+         </select>
+      </div>
+
+      <h3>✅ Order Confirmation</h3>
+      <div class="confirmation">
+         <p><strong>Total Products:</strong> <?= htmlspecialchars($total_products); ?></p>
+         <p><strong>Grand Total:</strong> <span style="color:green;font-weight:bold;"><?= $cart_grand_total; ?> ৳</span></p>
+      </div>
+
+      <input type="submit" name="order" class="btn <?= ($cart_grand_total > 0)?'':'disabled'; ?>" value="Place Order">
+
    </form>
+
 </section>
+
 <?php include 'footer.php'; ?>
 </body>
 </html>
