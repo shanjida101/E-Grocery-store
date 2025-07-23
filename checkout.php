@@ -65,6 +65,7 @@ if (isset($_POST['order'])) {
    <meta charset="UTF-8">
    <title>Checkout</title>
    <link rel="stylesheet" href="css/home.css">
+   <link rel="stylesheet" href="css/checkout.css?v=1.5">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
