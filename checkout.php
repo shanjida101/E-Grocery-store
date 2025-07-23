@@ -64,7 +64,7 @@ if (isset($_POST['order'])) {
 <head>
    <meta charset="UTF-8">
    <title>Checkout</title>
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/home.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
@@ -88,17 +88,14 @@ if (!empty($message)) {
       while ($item = $cart_items->fetch(PDO::FETCH_ASSOC)) {
          $total = $item['price'] * $item['quantity'];
          $grand_total += $total;
-         echo <p>
-   <?= htmlspecialchars($fetch_cart_items['name']); ?>
-   <span>(<?= '$' . number_format($fetch_cart_items['price'], 2) . ' x ' . $fetch_cart_items['quantity']; ?>)</span>
-</p>
-         "<div class='order-item'>";
+echo "<div class='order-item'>";
+echo "<p>" . htmlspecialchars($item['name']) . " <span>(" . '৳' . number_format($item['price'], 2) . " x " . $item['quantity'] . ")</span></p>";
          echo "<span>" . htmlspecialchars($item['name']) . " (x" . $item['quantity'] . ")</span>";
-         echo "<span class='price'>$" . number_format($total, 2) . "</span>";
+         echo "<span class='price'>৳" . number_format($total, 2) . "</span>";
          echo "</div>";
 
       }
-      echo "<div class='grand-total'>Grand Total: <span>$${grand_total}</span></div>";
+      echo '<div class="grand-total">Grand Total: <span> ৳' . number_format($grand_total, 2) . '</span></div>';
    } else {
       echo "<p class='empty'>Your cart is empty!</p>";
    }
@@ -131,6 +128,6 @@ if (!empty($message)) {
       <input type="submit" name="order" class="btn <?= ($grand_total > 0) ? '' : 'disabled'; ?>" value="Place Order">
    </form>
 </section>
-
+<?php include 'footer.php'; ?>
 </body>
 </html>
