@@ -1,0 +1,101 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9fb;
+  color: #333;
+}
+
+.orders-section {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.orders-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.order-header h3 {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-date {
+  font-size: 14px;
+  color: #777;
+}
+
+.order-info p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: #e5e5e5;
+  z-index: 1;
+}
+
+.timeline-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-step i {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 6px;
+  color: #bbb;
+}
+
+.timeline-step span {
+  font-size: 14px;
+  display: block;
+}
+
+.timeline-step.active i {
+  color: #69e647;
+}
+
+.timeline-step.active span {
+  font-weight: bold;
+  color: #34d544;
+}

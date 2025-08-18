@@ -46,10 +46,20 @@ body {
 }
 
 .box img {
-   width: 100%;
-   height: 150px;
-   object-fit: contain;
-   margin-bottom: 10px;
+   width: 150px;             /* same width */
+   height: 150px;            /* same height */
+   border-radius: 50%;       /* makes it round */
+   object-fit: cover;        /* crop image inside the circle */
+   margin: 0 auto 15px auto; /* center the image */
+   display: block;
+   border: 3px solid #eee;   /* optional border */
+   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* optional shadow */
+}
+.box h3 {
+   font-size: 18px;
+   margin: 10px 0;
+   color: #333;
+   text-align: center;
 }
 
 .box .name {

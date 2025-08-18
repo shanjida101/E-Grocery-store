@@ -9,30 +9,30 @@ $user_id = $_SESSION['user_id'];
 if(!isset($user_id)){
    header('location:login.php');
 };
-
 if(isset($_POST['add_to_wishlist'])){
 
-   $pid = filter_var($_POST['pid'], FILTER_SANITIZE_STRING);
-   $p_name = filter_var($_POST['p_name'], FILTER_SANITIZE_STRING);
+   $pid     = filter_var($_POST['pid'], FILTER_SANITIZE_STRING);
+   $p_name  = filter_var($_POST['p_name'], FILTER_SANITIZE_STRING);
    $p_price = filter_var($_POST['p_price'], FILTER_SANITIZE_STRING);
    $p_image = filter_var($_POST['p_image'], FILTER_SANITIZE_STRING);
 
+   // check if product already in wishlist
    $check_wishlist = $conn->prepare("SELECT * FROM `wishlist` WHERE name = ? AND user_id = ?");
    $check_wishlist->execute([$p_name, $user_id]);
 
+   // check if product already in cart
    $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE name = ? AND user_id = ?");
    $check_cart->execute([$p_name, $user_id]);
 
    if($check_wishlist->rowCount() > 0){
-      $message[] = 'already added to wishlist!';
+      $message[] = 'Already in wishlist!';
    } elseif($check_cart->rowCount() > 0){
-      $message[] = 'already added to cart!';
+      $message[] = 'Already in cart!';
    } else {
       $insert = $conn->prepare("INSERT INTO `wishlist`(user_id, pid, name, price, image) VALUES(?,?,?,?,?)");
       $insert->execute([$user_id, $pid, $p_name, $p_price, $p_image]);
-      $message[] = 'added to wishlist!';
+      $message[] = 'Added to wishlist!';
    }
-
 }
 
 if(isset($_POST['add_to_cart'])){
@@ -232,12 +232,7 @@ if(isset($_POST['add_to_cart'])){
 </head>
 <body>
 
-<?php if(isset($message)){ foreach($message as $msg){ ?>
-<div class="message">
-   <span><?= $msg; ?></span>
-   <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-</div>
-<?php }} ?>
+
 
 <header class="header">
    <div class="flex">
@@ -288,7 +283,7 @@ if(isset($_POST['add_to_cart'])){
          <div class="promo-text-overlay">
             <h2>Fresh organic veggies.<br><span>Simple solution for your day-to-day life</span></h2>
             <p>Get the freshest groceries delivered right to your home.</p>
-            <a href="delivery.php" class="learn-more-btn">Learn More →</a>
+            <a href="learn.php" class="learn-more-btn">Learn More →</a>
          </div>
       </div>
    </section>
@@ -297,9 +292,18 @@ if(isset($_POST['add_to_cart'])){
 <section class="home-category">
    <h1 class="title">shop by category</h1>
    <div class="box-container">
-      <div class="box"><img src="uploaded_img/cat-1.png" alt=""><h3>fruits</h3><p>Buy the fresh fruits from here</p><a href="category.php?category=fruits" class="btn">fruits</a></div>
-      <div class="box"><img src="uploaded_img/cat-2.png" alt=""><h3>meat</h3><p>Buy the fresh meat from here</p><a href="category.php?category=meat" class="btn">meat</a></div>
-      <div class="box"><img src="uploaded_img/cat-3.png" alt=""><h3>vegitables</h3><p>Buy the fresh vegitables from here</p><a href="category.php?category=vegitables" class="btn">vegitables</a></div>
+      <div class="box">
+         <img src="uploaded_img/cat-1.png" alt="">
+         <h3>Fruits</h3>
+         <p>Buy the fresh fruits from here</p>
+         <a href="category.php?category=fruits" class="btn" style="font-weight:bold; color:green;"><strong>Fruits</strong></a>
+      </div>
+      <div class="box"><img src="uploaded_img/cat-2.png" alt=""><h3>meat</h3><p>Buy the fresh meat from here</p>
+       <a href="category.php?category=meat" class="btn" style="font-weight:bold; color:green;"><strong>Meat</strong>
+   </div>
+      <div class="box"><img src="uploaded_img/cat-3.png" alt=""><h3>vegitables</h3><p>Buy the fresh vegitables from here</p>
+       <a href="category.php?category=Vegetables" class="btn" style="font-weight:bold; color:green;"><strong>Vegetables</strong>
+   </div>
    </div>
 </section>
 
@@ -368,9 +372,11 @@ if(isset($_POST['add_to_cart'])){
    <form action="" method="POST" class="box">
       <div class="price">৳<span><?= $product['price']; ?></span>/-</div>
       <img src="uploaded_img/<?= $product['image']; ?>" alt="">
-      <div class="name"><?= $product['name']; ?></div>
+      <div class="name"><strong style="font-weight:900; font-size:1.2em;"><?= htmlspecialchars($product['name']); ?></strong></div>
       <input type="hidden" name="pid" value="<?= $product['id']; ?>">
       <input type="hidden" name="p_name" value="<?= $product['name']; ?>">
+      <div class="details"><?= htmlspecialchars($product['details']); ?></div><br>
+
       <input type="hidden" name="p_price" value="<?= $product['price']; ?>">
       <input type="hidden" name="p_image" value="<?= $product['image']; ?>">
       <div class="quantity-box">
@@ -428,6 +434,86 @@ if(isset($_POST['add_to_cart'])){
          if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
       };
    });
+</script><!-- Toast container -->
+<div class="toast-container" id="toast-container"></div>
+
+<style>
+.toast-container {
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   z-index: 9999;
+}
+.toast {
+   min-width: 260px;
+   max-width: 340px;
+   padding: 12px 16px;
+   border-radius: 8px;
+   color: #fff;
+   font-size: 14px;
+   font-weight: 500;
+   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+   opacity: 0;
+   transform: translateX(100%);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   animation: slideIn 0.4s forwards, fadeOut 0.4s 3.5s forwards;
+}
+.toast.success { background: #10b981; } /* green */
+.toast.error   { background: #ef4444; } /* red */
+.toast.info    { background: #3b82f6; } /* blue */
+.toast .close-btn {
+   margin-left: 12px;
+   cursor: pointer;
+   font-weight: bold;
+   color: #fff;
+   font-size: 16px;
+   line-height: 1;
+}
+
+@keyframes slideIn {
+   from { opacity: 0; transform: translateX(100%); }
+   to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeOut {
+   to   { opacity: 0; transform: translateX(100%); }
+}
+</style>
+
+<script>
+function showToast(type, text) {
+   const container = document.getElementById("toast-container");
+   const toast = document.createElement("div");
+   toast.className = `toast ${type}`;
+   toast.innerHTML = `<span>${text}</span><span class="close-btn">&times;</span>`;
+
+   // Close on click
+   toast.querySelector(".close-btn").addEventListener("click", () => {
+      toast.remove();
+   });
+
+   container.appendChild(toast);
+
+   // Auto remove after animation
+   setTimeout(() => { 
+      toast.remove(); 
+   }, 4000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+   <?php if(isset($message)){ 
+      foreach($message as $msg){ 
+         $type = "info";
+         if(stripos($msg,"added") !== false) $type = "success";
+         if(stripos($msg,"already") !== false) $type = "error";
+   ?>
+      showToast("<?= $type ?>", "<?= addslashes($msg) ?>");
+   <?php }} ?>
+});
 </script>
 
 </body>

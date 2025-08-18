@@ -1,0 +1,111 @@
+/* ===== Update Product Page Styling ===== */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f9;
+    color: #333;
+}
+
+.update-product {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.update-product .title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.update-product form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.update-product img {
+    display: block;
+    margin: 0 auto 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 150px;
+    height: auto;
+}
+
+.update-product .box,
+.update-product textarea,
+.update-product select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    background: #fafafa;
+}
+
+.update-product .box:focus,
+.update-product textarea:focus,
+.update-product select:focus {
+    border-color: #3498db;
+    outline: none;
+    background: #fff;
+}
+
+.update-product textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.flex-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn, .option-btn {
+    display: inline-block;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: none;
+}
+
+.btn {
+    background: #3498db;
+    color: #fff;
+}
+
+.btn:hover {
+    background: #2980b9;
+}
+
+.option-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.option-btn:hover {
+    background: #bdc3c7;
+}
+
+/* Smooth fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

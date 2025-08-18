@@ -14,11 +14,12 @@ if (isset($_POST['order'])) {
     $number = filter_var($_POST['number'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
     $method = filter_var($_POST['method'], FILTER_SANITIZE_STRING);
-
     $address = 'Flat: ' . $_POST['flat'] . ', ' . $_POST['street'] . ', ' . $_POST['city'] . ', ' .
-               $_POST['state'] . ', ' . $_POST['country'] . ' - ' . $_POST['pin_code'];
+               $_POST['country'] . ' - ' . $_POST['pin_code'];
     $address = filter_var($address, FILTER_SANITIZE_STRING);
-    $placed_on = date('d-M-Y');
+
+    $placed_on = date('Y-m-d H:i:s');
+
 
     $cart_total = 0;
     $cart_products = [];
@@ -85,7 +86,6 @@ if (isset($_POST['order'])) {
     ?>
     <div class="grand-total">Grand Total: <span>৳<?= $cart_grand_total; ?></span></div>
 </section>
-
 <section class="checkout-orders">
     <form action="" method="POST">
         <h3>Shipping Information</h3>
@@ -103,27 +103,23 @@ if (isset($_POST['order'])) {
                 <input type="email" name="email" placeholder="Enter your email" class="box" required>
             </div>
             <div class="inputBox">
-                <span>Address Line 1:</span>
-                <input type="text" name="flat" placeholder="Flat No." class="box" required>
+                <span>Flat / House No:</span>
+                <input type="text" name="flat" placeholder="Flat / House No." class="box" required>
             </div>
             <div class="inputBox">
-                <span>Address Line 2:</span>
-                <input type="text" name="street" placeholder="Street" class="box" required>
+                <span>Street / Area:</span>
+                <input type="text" name="street" placeholder="Street / Area" class="box" required>
             </div>
             <div class="inputBox">
-                <span>City:</span>
-                <input type="text" name="city" placeholder="City" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>State:</span>
-                <input type="text" name="state" placeholder="State" class="box" required>
+                <span>City / District:</span>
+                <input type="text" name="city" placeholder="City or District" class="box" required>
             </div>
             <div class="inputBox">
                 <span>Country:</span>
-                <input type="text" name="country" placeholder="Country" class="box" required>
+                <input type="text" name="country" value="Bangladesh" class="box" readonly>
             </div>
             <div class="inputBox">
-                <span>Pin Code:</span>
+                <span>Postal Code:</span>
                 <input type="number" name="pin_code" placeholder="Postal Code" class="box" required>
             </div>
             <div class="inputBox">
@@ -132,14 +128,18 @@ if (isset($_POST['order'])) {
                     <option value="Cash on Delivery">Cash on Delivery</option>
                     <option value="Bkash">Bkash</option>
                     <option value="Nagad">Nagad</option>
+                    <option value="Rocket">Rocket</option>
                     <option value="Card">Credit/Debit Card</option>
                 </select>
             </div>
         </div>
 
-        <input type="submit" name="order" class="btn <?= ($cart_grand_total > 0 ? '' : 'disabled'); ?>" value="Confirm Order">
+        <input type="submit" name="order" 
+               class="btn <?= ($cart_grand_total > 0 ? '' : 'disabled'); ?>" 
+               value="Confirm Order">
     </form>
 </section>
+
 
 <?php include 'footer.php'; ?>
 

@@ -84,7 +84,9 @@ if(isset($_POST['add_to_cart'])){
       if($select->rowCount() > 0){
          while($product = $select->fetch(PDO::FETCH_ASSOC)){
    ?>
+  
    <form action="" class="box" method="POST">
+      
       <a href="view_page.php?pid=<?= $product['id']; ?>" class="product-click-area">
          <img src="uploaded_img/<?= $product['image']; ?>" alt="">
          <div class="name"><?= $product['name']; ?></div>

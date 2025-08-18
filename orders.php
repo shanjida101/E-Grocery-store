@@ -131,7 +131,19 @@ if(!isset($user_id)){
          <p><i class="fas fa-money-check-alt"></i> Payment Method: <span><?= $fetch_orders['method']; ?></span></p>
          <p><i class="fas fa-box"></i> Your Orders: <span><?= $fetch_orders['total_products']; ?></span></p>
          <p><i class="fas fa-dollar-sign"></i> Total Price: <span>৳<?= $fetch_orders['total_price']; ?>/-</span></p>
-         <p><i class="fas fa-info-circle"></i> Payment Status: <span class="status <?= $statusClass ?>"><?= $fetch_orders['payment_status']; ?></span></p>
+         <p><i class="fas fa-info-circle"></i> Payment Status: 
+   <span class="status <?= $statusClass ?>"><?= $fetch_orders['payment_status']; ?></span>
+</p>
+
+<!-- Track Order Button -->
+<p style="text-align:center; margin-top:15px;">
+   <a href="track_order.php?order_id=<?= $fetch_orders['id']; ?>" 
+      class="btn" 
+      style="display:inline-block; padding:10px 15px; background:#007bff; color:#fff; border-radius:6px; text-decoration:none; font-weight:600;">
+      <i class="fas fa-truck"></i> Track Order
+   </a>
+</p>
+
       </div>
       <?php
             }

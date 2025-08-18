@@ -76,7 +76,7 @@ if(isset($_POST['add_to_cart'])){
 
 <section class="p-category">
    <a href="category.php?category=fruits">Fruits</a>
-   <a href="category.php?category=vegitables">Vegetables</a>
+   <a href="category.php?category=Vegetables">Vegetables</a>
    <a href="category.php?category=meat">Meat</a>
 </section>
 
@@ -100,6 +100,7 @@ if(isset($_POST['add_to_cart'])){
 
    <input type="hidden" name="pid" value="<?= $fetch['id']; ?>">
    <input type="hidden" name="p_name" value="<?= $fetch['name']; ?>">
+   <input type="hidden" name="p_details" value="<?= $fetch['details']; ?>">
    <input type="hidden" name="p_price" value="<?= $fetch['price']; ?>">
    <input type="hidden" name="p_image" value="<?= $fetch['image']; ?>">
 
