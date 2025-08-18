@@ -20,9 +20,13 @@ if(isset($_POST['send'])){
    $number = filter_var($number, FILTER_SANITIZE_STRING);
    $msg = $_POST['msg'];
    $msg = filter_var($msg, FILTER_SANITIZE_STRING);
+$select_message = $conn->prepare("SELECT * FROM `message` 
+   WHERE name = ? COLLATE utf8mb4_general_ci 
+   AND email = ? COLLATE utf8mb4_general_ci 
+   AND number = ? COLLATE utf8mb4_general_ci 
+   AND message = ? COLLATE utf8mb4_general_ci");
+$select_message->execute([$name, $email, $number, $msg]);
 
-   $select_message = $conn->prepare("SELECT * FROM `message` WHERE name = ? AND email = ? AND number = ? AND message = ?");
-   $select_message->execute([$name, $email, $number, $msg]);
 
    if($select_message->rowCount() > 0){
       $message[] = 'already sent message!';

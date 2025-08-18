@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2025 at 12:01 AM
+-- Generation Time: Aug 19, 2025 at 12:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -37,18 +37,6 @@ CREATE TABLE `cart` (
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `pid`, `name`, `price`, `quantity`, `image`) VALUES
-(11, 11, 29, 'Tomato', 80.00, 1, 'tomato.jpg'),
-(12, 11, 42, 'Fish (Rohu)', 350.00, 1, 'fish.jpg'),
-(13, 11, 31, 'Onion', 65.00, 1, 'onion.jpg'),
-(14, 11, 30, 'Potato', 50.00, 1, 'potato.jpg'),
-(16, 11, 37, 'Mango', 180.00, 1, 'mango.jpg'),
-(17, 11, 38, 'Watermelon', 250.00, 1, 'watermelon.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -74,7 +62,6 @@ INSERT INTO `message` (`id`, `user_id`, `name`, `number`, `email`, `message`) VA
 (3, 6, 'নাফিসা', '01776576553', 'user49@example.com', 'আমার অর্ডার এখনো ডেলিভারি হয়নি।'),
 (4, 7, 'আশফাক', '01762290581', 'user479@example.com', 'হটলাইন নাম্বারটি দিলে ভালো হয়।'),
 (5, 8, 'আশফাক', '01770508249', 'user121@example.com', 'আজকের অফার সম্পর্কে জানতে চাই।'),
-(6, 8, 'ফারহানা', '01763060262', 'user34@example.com', 'আমার শেষ অর্ডারটি ক্যান্সেল করুন।'),
 (7, 1, 'আশফাক', '01780386653', 'user350@example.com', 'আজকের অফার সম্পর্কে জানতে চাই।'),
 (8, 4, 'তানভীর', '01746673490', 'user255@example.com', 'আমার অর্ডার এখনো ডেলিভারি হয়নি।'),
 (9, 2, 'সাদিয়া', '01709445154', 'user434@example.com', 'আজকের অফার সম্পর্কে জানতে চাই।'),
@@ -170,7 +157,8 @@ INSERT INTO `message` (`id`, `user_id`, `name`, `number`, `email`, `message`) VA
 (99, 8, 'নাফিসা', '01724602609', 'user252@example.com', 'বাল্ক অর্ডার করলে কি ডিসকাউন্ট পাব?'),
 (100, 4, 'ইমরান', '01791988382', 'user371@example.com', 'হটলাইন নাম্বারটি দিলে ভালো হয়।'),
 (128, 11, 'shanjida azim shorna', '01744842746', 'shanjidaazimshorna@gmail.com', 'HELLO'),
-(129, 11, 'Shorna', '01887337586', 'shanjidaazimshorna@gmail.com', 'no fruits are available');
+(129, 11, 'Shorna', '01887337586', 'shanjidaazimshorna@gmail.com', 'no fruits are available'),
+(130, 11, 'zarin', '01232390234', 'shanjidaazimshorna@gmail.com', '😇 ');
 
 -- --------------------------------------------------------
 
@@ -199,14 +187,12 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `number`, `address`, `total_products`, `total_price`, `method`, `payment_status`, `placed_on`) VALUES
 (2, 1, 'Jamil', 'user272@example.com', '01729780974', 'Rajshahi', '4', 1263.00, 'Cash on Delivery', 'completed', '2025-07-21 22:14:37'),
 (3, 1, 'Jamil', 'user93@example.com', '01758330678', 'Dhaka', '9', 4964.00, 'Cash on Delivery', 'completed', '2025-08-01 22:14:37'),
-(4, 1, 'Jamil', 'user125@example.com', '01850406245', 'Khulna', '7', 4484.00, 'bKash', 'completed', '2025-07-31 22:14:37'),
 (5, 1, 'Mitu', 'user214@example.com', '01646981159', 'Rajshahi', '1', 3644.00, 'bKash', 'completed', '2025-08-04 22:14:37'),
 (6, 1, 'Tariq', 'user195@example.com', '01674169977', 'Dhaka', '7', 4216.00, 'Cash on Delivery', 'pending', '2025-08-13 22:14:37'),
 (7, 1, 'Farzana', 'user464@example.com', '01881550612', 'Barisal', '8', 4904.00, 'bKash', 'pending', '2025-08-02 22:14:37'),
 (8, 1, 'Tariq', 'user483@example.com', '01682561053', 'Khulna', '6', 2244.00, 'bKash', 'completed', '2025-07-23 22:14:37'),
 (9, 1, 'Farzana', 'user402@example.com', '01707489828', 'Khulna', '9', 402.00, 'Nagad', 'completed', '2025-08-13 22:14:37'),
 (10, 1, 'Mitu', 'user93@example.com', '01813459061', 'Dhaka', '9', 2191.00, 'bKash', 'completed', '2025-08-11 22:14:37'),
-(11, 1, 'Tariq', 'user3@example.com', '01706748181', 'Sylhet', '8', 2581.00, 'Cash on Delivery', 'completed', '2025-08-16 22:14:37'),
 (12, 1, 'Jamil', 'user424@example.com', '01830300701', 'Chittagong', '2', 5076.00, 'bKash', 'pending', '2025-07-23 22:14:37'),
 (13, 1, 'Mitu', 'user444@example.com', '01690809583', 'Barisal', '4', 1074.00, 'Nagad', 'pending', '2025-08-06 22:14:37'),
 (14, 1, 'Farzana', 'user312@example.com', '01656259787', 'Dhaka', '8', 3667.00, 'Cash on Delivery', 'completed', '2025-08-18 22:14:37'),
@@ -591,10 +577,10 @@ INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `number`, `address`, `to
 (526, 1, 'Bob', 'user439@example.com', '01725432157', 'Rajshahi', '5', 1507.00, 'Cash on Delivery', 'return', '2025-08-01 22:50:07'),
 (527, 7, 'Charlie', 'user393@example.com', '01726475993', 'Sylhet', '1', 1789.00, 'bKash', 'return', '2025-07-28 22:50:07'),
 (528, 9, 'Bob', 'user459@example.com', '01764422225', 'Khulna', '5', 3368.00, 'Cash on Delivery', 'return', '2025-08-13 22:50:07'),
-(529, 9, 'Eve', 'user363@example.com', '01797836092', 'Rajshahi', '7', 575.00, 'bKash', 'return', '2025-08-08 22:50:07');
-INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `number`, `address`, `total_products`, `total_price`, `method`, `payment_status`, `placed_on`) VALUES
+(529, 9, 'Eve', 'user363@example.com', '01797836092', 'Rajshahi', '7', 575.00, 'bKash', 'return', '2025-08-08 22:50:07'),
 (530, 2, 'Eve', 'user449@example.com', '01780494538', 'Chittagong', '3', 1136.00, 'Cash on Delivery', 'return', '2025-07-21 22:50:07'),
-(531, 9, 'Bob', 'user213@example.com', '01792539596', 'Chittagong', '10', 4623.00, 'bKash', 'return', '2025-08-18 22:50:07'),
+(531, 9, 'Bob', 'user213@example.com', '01792539596', 'Chittagong', '10', 4623.00, 'bKash', 'return', '2025-08-18 22:50:07');
+INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `number`, `address`, `total_products`, `total_price`, `method`, `payment_status`, `placed_on`) VALUES
 (532, 4, 'Eve', 'user221@example.com', '01744443669', 'Sylhet', '2', 781.00, 'Cash on Delivery', 'return', '2025-08-04 22:50:07'),
 (533, 10, 'Alice', 'user332@example.com', '01708176231', 'Khulna', '9', 5016.00, 'bKash', 'return', '2025-07-22 22:50:07'),
 (589, 8, 'ইমরান', 'user16@example.com', '01766135106', 'চট্টগ্রাম', '1', 4147.00, 'Nagad', 'pending', '2025-07-22 22:57:15'),
@@ -897,7 +883,8 @@ INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `number`, `address`, `to
 (886, 10, 'সাদিয়া', 'user192@example.com', '01793745414', 'খুলনা', '9', 3729.00, 'Cash on Delivery', 'completed', '2025-07-27 22:57:15'),
 (887, 9, 'সুমাইয়া', 'user136@example.com', '01778115406', 'ঢাকা', '2', 1773.00, 'Cash on Delivery', 'pending', '2025-07-29 22:57:15'),
 (888, 9, 'তানভীর', 'user382@example.com', '01799749927', 'রাজশাহী', '6', 2279.00, 'bKash', 'completed', '2025-07-21 22:57:15'),
-(1102, 11, 'shanjida azim shorna', 'shanjidaazimshorna@gmail.com', '01744842746', 'Flat: 10, Khadim Para, Sylhet, Bangladesh - 3100', 'Onion (x1)', 65.00, 'Nagad', 'pending', '2025-08-18 21:14:35');
+(1102, 11, 'shanjida azim shorna', 'shanjidaazimshorna@gmail.com', '01744842746', 'Flat: 10, Khadim Para, Sylhet, Bangladesh - 3100', 'Onion (x1)', 65.00, 'Nagad', 'pending', '2025-08-18 21:14:35'),
+(1103, 11, 'shanjida azim shorna', 'shanjidaazimshorna@gmail.com', '01744842746', 'Flat: 10, Khadim Para, Sylhet, Bangladesh - 3100', 'Tomato (x1), Fish (Rohu) (x3), Onion (x1), Potato (x1), Mango (x1), Watermelon (x1), Orange (x1)', 1825.00, 'Nagad', 'pending', '2025-08-19 00:10:19');
 
 -- --------------------------------------------------------
 
@@ -920,7 +907,9 @@ INSERT INTO `order_tracking` (`id`, `order_id`, `status`, `updated_at`) VALUES
 (1, 188, 'Packed', '2025-08-18 16:14:56'),
 (2, 1102, 'Packed', '2025-08-18 19:31:17'),
 (3, 63, 'Order Placed', '2025-08-18 19:44:29'),
-(4, 601, 'Out for Delivery', '2025-08-18 19:47:04');
+(4, 601, 'Out for Delivery', '2025-08-18 19:47:04'),
+(5, 590, 'Packed', '2025-08-18 22:07:10'),
+(6, 1102, 'Shipped', '2025-08-18 22:07:25');
 
 -- --------------------------------------------------------
 
@@ -1073,25 +1062,25 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1104;
 
 --
 -- AUTO_INCREMENT for table `order_tracking`
 --
 ALTER TABLE `order_tracking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
